@@ -1,0 +1,186 @@
+name: unisound
+version: v7.4.0.2
+description: 离线智能语音终端解决方案
+type: solution
+hw_info:
+  cpu_id: ""
+  cpu_name: ""
+  vendor_name: ""
+  chip_name: ""
+  board_name: us615_offline_audio
+  ld_script: ""
+  flash_program: ""
+depends:
+  - aos: v7.4.0.2
+  - at: v7.4.0.2
+  - ulog: v7.4.0.2
+  - partition: v7.4.0.2
+  - uservice: v7.4.0.2
+  - ble_host: v7.4.0.2
+  - breeze: v7.4.0.2
+  - button: v7.4.0.2
+  - cjson: v7.4.0.2
+  - console: v7.4.0.2
+  - csi: v7.4.0.2
+  - drivers: v7.4.0.2
+  - drv_bt_us615: v7.4.0.2
+  - drv_wifi_us615: v7.4.0.2
+  - offline_voice: v7.4.0.2
+  - ers: v7.4.0.2
+  - fota: v7.4.0.2
+  - httpclient: v7.4.0.2
+  - kv: v7.4.0.2
+  - lwip: v7.4.0.2
+  - mbedtls: v7.4.0.2
+  - minilibc: v7.4.0.2
+  - netmgr: v7.4.0.2
+  - ntp: v7.4.0.2
+  - rhino: v7.4.0.2
+  - smartliving: v7.4.0.2
+  - us615_offline_audio: v7.4.0.2
+  - chip_us615: v7.4.0.2
+# 编译参数
+build_config:
+  include:
+    - app/include
+    - app/include/unisound
+    - app/include/unisound/osal
+    - app/src
+    - app/src/audio
+    - app/src/iot_dispatcher/include
+    - app/src/unisound
+    - app/src/unisound/adpcm
+    - app/src/unisound/user
+    - app/src/unisound/uartrecord
+    - app/src/unisound/helix_mp3
+  internal_include: ~
+  cflag: -O2 -g -Wno-main -mcpu=ck804ef -mhard-float
+  cxxflag: -O2 -g -Wno-main -mcpu=ck804ef -mhard-float
+  asmflag: -O2 -g -Wno-main -mcpu=ck804ef -mhard-float
+  define: ~
+  libs:
+    - m
+    - dsp
+    - kws
+    - ual-osal
+    - umd
+    - product_check
+    - resample
+    - hlkkey
+  libpath:
+    - libs
+  ldflag: -g -Os -Wl,-ckmap="yoc.map" -Wl,-zmax-page-size=1024 -mhard-float -MP -MMD -Wno-main -mcpu=ck804ef
+# 源文件
+source_file:
+  - app/src/init/*.c
+  - app/src/*.c
+  - app/src/unisound/*.c
+  - app/src/unisound/adpcm/*.c
+  - app/src/unisound/user/*.c
+  - app/src/at_cmd/*.c
+  - app/src/audio/*.c
+  - app/src/extflash/*.c
+  - app/src/iot_dispatcher/*.c
+  - app/src/unisound/uartrecord/*.c ? <CONFIG_UNI_UART_RECORD>
+  - app/src/unisound/helix_mp3/*.c
+  - app/src/unisound/helix_mp3/real/*.c
+#export:
+#  - dest: "<SOLUTION_PATH>/generated/data"
+#    source:
+#      - "app/src/audio/lfs"
+def_config:
+  BLE_4_2: 1
+  CONFIG_AEFXER_IPC: 0
+  CONFIG_AEFXER_SONA: 0
+  CONFIG_AO_MIXER_SUPPORT: 0
+  CONFIG_ARCH_INTERRUPTSTACK: 2048  # 将中断栈减少为2K
+  CONFIG_ATEMPOER_IPC: 0
+  CONFIG_ATEMPOER_SONIC: 0
+  CONFIG_AVPARSER_ADTS: 0
+  CONFIG_AVPARSER_MP3: 0
+  CONFIG_AV_MP4_IDX_OPT: 0
+  CONFIG_BLE_MESH_PROV: 1
+  CONFIG_BT_CENTRAL: 1
+  CONFIG_BT_DEBUG_LOG: 1
+  CONFIG_BT_HCI_CMD_COUNT: 3
+  CONFIG_BT_HCI_RX_STACK_SIZE: 640
+  CONFIG_BT_L2CAP_RX_MTU: 247
+  CONFIG_BT_L2CAP_TX_BUF_COUNT: 8
+  CONFIG_BT_L2CAP_TX_MTU: 247
+  CONFIG_BT_PERIPHERAL: 1
+  CONFIG_BT_RX_BUF_COUNT: 4
+  CONFIG_BT_RX_BUF_LEN: 280
+  CONFIG_BT_RX_STACK_SIZE: 1408 # 减少蓝牙协议栈的接收端缓冲大小
+  CONFIG_CLI: 1
+  CONFIG_CLI_TASK_PRIO: 30
+  CONFIG_DEBUG: 1
+  # CONFIG_DEBUG_MM: 1
+  CONFIG_DECODER_ADPCM_MS: 0
+  CONFIG_DECODER_FLAC: 0
+  CONFIG_DECODER_PCM: 0
+  CONFIG_DECODER_PVMP3: 0
+  CONFIG_DEMUXER_ADTS: 0
+  CONFIG_DEMUXER_AMR: 0
+  CONFIG_DEMUXER_ASF: 0
+  CONFIG_DEMUXER_FLAC: 0
+  CONFIG_DEMUXER_MP3: 0
+  CONFIG_DEMUXER_MP4: 0
+  CONFIG_DEMUXER_OGG: 0
+  CONFIG_DEMUXER_RAWAUDIO: 0
+  CONFIG_DEMUXER_TS: 0
+  CONFIG_DEMUXER_WAV: 0
+  CONFIG_DYN_TASK_STACK_SIZE: 256
+  CONFIG_FLASH_NUM: 2
+  CONFIG_IDLE_TASK_STACK_SIZE: 256
+  CONFIG_INIT_TASK_STACK_SIZE: 4096
+  CONFIG_KERNEL_RHINO: 1
+  CONFIG_KERNEL_TIMER_STACK_SIZE: 1024
+  CONFIG_KV_SMART: 1
+  CONFIG_MULTI_FLASH_SUPPORT: 1
+  CONFIG_NET_BUF: 1
+  # CONFIG_NON_ADDRESS_FLASH: 1  # 使用 XIP，不需要开启此处配置
+  CONFIG_OUTPUTER_ALSA: 0
+  CONFIG_PLAYER_TASK_STACK_SIZE: 2048
+  CONFIG_WEB_CACHE_TASK_STACK_SIZE: 6144
+  CONFIG_AV_STREAM_INNER_BUF_SIZE: 256
+  CONFIG_AV_PROBE_SIZE_MAX : 1024
+  CONFIG_AV_AO_CHANNEL_NUM: 1
+  CONFIG_AV_SAMPLE_NUM_PER_FRAME_MAX: 20
+  CONFIG_RESAMPLER_IPC: 0
+  CONFIG_RESAMPLER_SPEEX: 0
+  CONFIG_STREAMER_CRYPTO: 0
+  CONFIG_STREAMER_FIFO: 0
+  CONFIG_STREAMER_FILE: 0
+  CONFIG_STREAMER_HLS: 0
+  CONFIG_STREAMER_HTTP: 0
+  CONFIG_STREAMER_MEM: 1
+  CONFIG_SYSTEM_SECURE: 1
+  CONFIG_TCPIP: 1
+  CONFIG_USING_TLS: 1
+  CONFIG_FOTA_BUFFER_SIZE: 512
+  CONFIG_FOTA_TASK_STACK_SIZE: 1600
+  CONFIG_WIFI_PROV_BLE: 1
+  CONFIG_BLE_DYN_TASK_STAK: 1
+  EN_COMBO_NET: 1
+  EN_LONG_MTU: 1
+  MBEDTLS_SSL_MAX_CONTENT_LEN: 4096
+  # OTA_ENABLED: 1
+  XIAOYA_PATCH: 0
+  ALCS_ENABLED: 1
+# CONFIG_BT_ATT_ENFORCE_FLOW: 1
+# CONFIG_BT_DEBUG_ATT: 1
+# CONFIG_BT_DEBUG_GATT: 1
+# CONFIG_SUPPORT_TSPEND: 1
+  CONFIG_LED_DEMO: 1
+  # CONFIG_IR_DEMO: 1
+  CONFIG_UNI_UART_RECORD: 0
+  CONFIG_ARPT_PRINT: 1
+  MBEDTLS_ECP_WINDOW_SIZE: 2       # reduce ECP window size to 2 to save RAM usage
+  MBEDTLS_ECP_FIXED_POINT_OPTIM: 0 # disable the ECP fixed point optimizations to save RAM usage
+keywords: ~
+tag: ""
+author:
+  name: ""
+license: ""
+install: ~
+homepage: ~
