@@ -164,7 +164,7 @@ int main() {
   int tick_counter = 0;
   board_yoc_init();
   LOGD(TAG, "%s\n", aos_get_app_version());
-  printf("*****************HLK_800_PRO-V1.0.0*******************\r\n");
+  printf("fffff*****************HLK_800_PRO-V1.0.0*******************\r\n");
   //aos_set_log_level(AOS_LL_INFO);
   check_pid_effective();
   event_service_init(NULL);
