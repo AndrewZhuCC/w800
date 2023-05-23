@@ -5,5 +5,11 @@
         "activityBar.background": "#500D55",
         "titleBar.activeBackground": "#711277",
         "titleBar.activeForeground": "#FEFCFE"
+    },
+    "files.associations": {
+        "*.pyx": "cython",
+        "msg_process_center.h": "c",
+        "app_config.h": "c",
+        "debug.h": "c"
     }
 }
