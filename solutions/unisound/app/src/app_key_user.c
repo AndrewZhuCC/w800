@@ -5,10 +5,12 @@
 //#include "app_lpm.h"
 //#include <aos/hal/adc.h>
 #include "app_sys.h"
+#include "msg_process_center.h"
 
 #define TAG "keyusr"
 
 extern int wifi_prov_method;
+extern color_hsv_t HSV_Color;
 
 typedef enum {
     button_id0 = 0,
@@ -35,7 +37,14 @@ void button_evt(int event_id, void *priv)
 			aos_reboot();
 			break;
 		case nothing:
-			//TODO
+			LOGE(TAG, "change color");
+			HSV_Color.h += 120;
+			if (HSV_Color.h >= 360) {
+				HSV_Color.h = 0;
+			}
+			HSV_Color.s = 100;
+			HSV_Color.v = 100;
+			HSV_Color.light_switch = 1;
 			break;
 		default:
 			break;
