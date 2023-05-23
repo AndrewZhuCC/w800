@@ -11,6 +11,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python \
     python-pip \
     lame \
+    build-essential \
+    git \
     lib32stdc++6 \
     lib32z1 \
     lib32ncurses5 \
