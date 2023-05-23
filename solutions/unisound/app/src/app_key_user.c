@@ -25,12 +25,15 @@ void change_color(void)
 {
   led_strip_msg_t msg;
   msg.validindex = HSV_VALID;
-  msg.hsvcolor[0].h += 120;
-  if (msg.hsvcolor[0].h >= 360) {
-    msg.hsvcolor[0].h = 0;
+  HSV_Color.h += 120;
+  if (HSV_Color.h >= 360) {
+	HSV_Color.h = 0;
   }
-  msg.hsvcolor[0].s = 100;
-  msg.hsvcolor[0].v = 100;
+  HSV_Color.s = 100;
+  HSV_Color.v = 100;
+  msg.hsvcolor[0].h = HSV_Color.h;
+  msg.hsvcolor[0].s = HSV_Color.s;
+  msg.hsvcolor[0].v = HSV_Color.v;
   msg.hsvcolor[0].light_switch = 1;
   send_msg_to_queue(&msg);
 }
