@@ -1,0 +1,29 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - 'release'
+  pull_request:
+    branches:
+      - 'release'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: andrewzzhu/w800-build:latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build
+      run: cd solution/unisound && make
+
+    - name: Archive
+      uses: actions/upload-artifact@v2
+      with:
+        name: uni_app
+        path: solution/unisound/out/unisound/uni_app.fls
