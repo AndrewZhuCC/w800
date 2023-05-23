@@ -21,6 +21,20 @@ typedef enum {
     network,
 } button_event_t;
 
+void change_color(void)
+{
+  led_strip_msg_t msg;
+  msg.validindex = HSV_VALID;
+  msg.hsvcolor[0].h += 120;
+  if (msg.hsvcolor[0].h >= 360) {
+    msg.hsvcolor[0].h = 0;
+  }
+  msg.hsvcolor[0].s = 100;
+  msg.hsvcolor[0].v = 100;
+  msg.hsvcolor[0].light_switch = 1;
+  send_msg_to_queue(&msg);
+}
+
 void button_evt(int event_id, void *priv)
 {
     LOGD(TAG, "button(%s)\n", (char *)priv);
@@ -38,13 +52,7 @@ void button_evt(int event_id, void *priv)
 			break;
 		case nothing:
 			LOGE(TAG, "change color");
-			HSV_Color.h += 120;
-			if (HSV_Color.h >= 360) {
-				HSV_Color.h = 0;
-			}
-			HSV_Color.s = 100;
-			HSV_Color.v = 100;
-			HSV_Color.light_switch = 1;
+			change_color();
 			break;
 		default:
 			break;
