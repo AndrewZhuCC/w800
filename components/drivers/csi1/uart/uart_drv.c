@@ -298,10 +298,14 @@ static int uart_csky_recv(aos_dev_t *dev, void *data, uint32_t size, unsigned in
     uart(dev)->event_state &= ~USART_EVENT_READ;
 
     while (1) {
-        if (uart(dev)->recv_buf != NULL)
+        if (uart(dev)->recv_buf != NULL) {
+            printf("uart receive from ringbuffer\n");
             ret = ringbuffer_read(&uart(dev)->read_buffer, (uint8_t *)temp_buf, temp_count);
-        else
+        }
+        else {
+            printf("uart receive from usart\n");
             ret = csi_usart_receive_query(&uart(dev)->handle, (uint8_t *)temp_buf, temp_count);
+        }
 
         temp_count = temp_count - ret;
         temp_buf   = (uint8_t *)temp_buf + ret;
