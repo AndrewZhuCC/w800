@@ -60,7 +60,7 @@ void button_evt(int event_id, void *priv)
 			// LOGE(TAG, "change color");
 			// change_color();
             LOGE(TAG, "send at command");
-            send_at_command("AT\r\n");
+            send_at_command("AT\r\n", 5000);
 			break;
 		default:
 			break;

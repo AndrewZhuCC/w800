@@ -176,8 +176,9 @@ static void cmd_app_func(char *wbuf, int wbuf_len, int argc, char **argv)
             local_audio_vol_set(vol);
         }
     } else if (strcmp(argv[1], "at") == 0) {
-        printf("cli at %s\n", argv[2]);
-        send_at_command(argv[2]);
+        printf("cli at %s %s\n", argv[2], argv[3]);
+        uint32_t timeout = atol(argv[3]);
+        send_at_command(argv[2], timeout);
 #if 0
     } else if (strcmp(argv[1], "jtag") == 0) {
         uni_swd_config(atoi(argv[2]));

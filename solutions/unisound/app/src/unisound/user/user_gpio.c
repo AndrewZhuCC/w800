@@ -282,11 +282,11 @@ int user_uart_send(int port, uint8_t *data, uint32_t size) {
   return uart_send(g_uart_handler[port], data, size);
 }
 
-int user_uart_recv(int port, uint8_t *buf, uint32_t size) {
+int user_uart_recv(int port, uint8_t *buf, uint32_t size, uint32_t timeout) {
   if (g_uart_handler[port] == NULL) {
     return -1;
   }
-  return uart_recv(g_uart_handler[port], buf, size, 0);
+  return uart_recv(g_uart_handler[port], buf, size, timeout);
 }
 
 static void _usr_gpio_pulse_callback(int32_t idx, timer_event_e event)
