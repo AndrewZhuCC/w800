@@ -6,6 +6,7 @@
 //#include <aos/hal/adc.h>
 #include "app_sys.h"
 #include "msg_process_center.h"
+#include "user_gpio.h"
 
 #define TAG "keyusr"
 
@@ -38,6 +39,18 @@ void change_color(void)
   send_msg_to_queue(&msg);
 }
 
+#define RECEIVE_BUF_LEN 64
+
+void send_at_command() {
+    char *command = "AT\r\n";
+    user_uart_send(1, command, strlen(command));
+
+    char recv_buf[RECEIVE_BUF_LEN] = {0};
+    int ret = user_uart_recv(1, recv_buf, RECEIVE_BUF_LEN);
+
+    LOGE(TAG, "ret: %d receive: %s", ret, recv_buf);
+}
+
 void button_evt(int event_id, void *priv)
 {
     LOGD(TAG, "button(%s)\n", (char *)priv);
@@ -54,8 +67,10 @@ void button_evt(int event_id, void *priv)
 			aos_reboot();
 			break;
 		case nothing:
-			LOGE(TAG, "change color");
-			change_color();
+			// LOGE(TAG, "change color");
+			// change_color();
+            LOGE(TAG, "send at command");
+            send_at_command();
 			break;
 		default:
 			break;

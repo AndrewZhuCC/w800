@@ -95,6 +95,7 @@ int user_pwm_disable(uint32_t pwm_port);
 int user_uart_init(pin_name_e user_pin, uint32_t baudrate, int data_bits, int stop_bits,
                    int parity);
 int user_uart_send(int port, uint8_t *data, uint32_t size);
+int user_uart_recv(int port, uint8_t *buf, uint32_t size);
 int user_sw_timer_gpio_pulse(int port, int period_ms, int times,
                              uint8_t dev_val);
 
