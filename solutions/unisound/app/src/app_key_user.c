@@ -1,6 +1,7 @@
 /*
  */
 #include <yoc/button.h>
+#include <aos/kernel.h>
 #include "app_main.h"
 //#include "app_lpm.h"
 //#include <aos/hal/adc.h>
@@ -45,6 +46,8 @@ void send_at_command() {
     char *command = "AT\r\n";
     int ret = user_uart_send(1, command, strlen(command));
     LOGI(TAG, "ret: %d send: %s", ret, command);
+
+    // aos_event_get(&evt_sample_input, EVT_SAMPLE_READ_AVAILABLE | EVT_SAMPLE_BUF_FULL, AOS_EVENT_OR_CLEAR, &flags, AOS_WAIT_FOREVER);
 
     LOGI(TAG, "before recv_buf");
     char recv_buf[RECEIVE_BUF_LEN] = {0};

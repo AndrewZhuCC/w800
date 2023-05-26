@@ -299,11 +299,9 @@ static int uart_csky_recv(aos_dev_t *dev, void *data, uint32_t size, unsigned in
 
     while (1) {
         if (uart(dev)->recv_buf != NULL) {
-            printf("uart receive from ringbuffer\n");
             ret = ringbuffer_read(&uart(dev)->read_buffer, (uint8_t *)temp_buf, temp_count);
         }
         else {
-            printf("uart receive from usart\n");
             ret = csi_usart_receive_query(&uart(dev)->handle, (uint8_t *)temp_buf, temp_count);
         }
 
