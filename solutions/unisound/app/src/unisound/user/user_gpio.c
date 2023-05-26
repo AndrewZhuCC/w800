@@ -285,7 +285,7 @@ int user_uart_recv(int port, uint8_t *buf, uint32_t size) {
   if (g_uart_handler[port] == NULL) {
     return -1;
   }
-  return uart_recv(g_uart_handler[port], buf, size, 10);
+  return uart_recv(g_uart_handler[port], buf, size, 5000);
 }
 
 static void _usr_gpio_pulse_callback(int32_t idx, timer_event_e event)
