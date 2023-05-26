@@ -49,13 +49,13 @@ void send_at_command() {
     LOGI(TAG, "before recv_buf");
     char recv_buf[RECEIVE_BUF_LEN] = {0};
     LOGI(TAG, "after recv_buf");
-    ret = user_uart_recv(1, recv_buf, RECEIVE_BUF_LEN);
-    if (ret == -1) {
-        LOGE(TAG, "uart recv error");
-        return;
-    }
+    // ret = user_uart_recv(1, recv_buf, RECEIVE_BUF_LEN);
+    // if (ret == -1) {
+    //     LOGE(TAG, "uart recv error");
+    //     return;
+    // }
 
-    LOGI(TAG, "ret: %d receive: %s", ret, recv_buf);
+    // LOGI(TAG, "ret: %d receive: %s", ret, recv_buf);
 }
 
 void button_evt(int event_id, void *priv)
