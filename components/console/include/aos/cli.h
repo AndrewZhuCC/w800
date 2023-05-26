@@ -16,6 +16,10 @@ extern "C" {
 #define CONFIG_CLI_TASK_STACK_SIZE (1 * 1024)
 #endif
 
+#ifndef CONFIG_CLI_TASK_PRIO
+#define CONFIG_CLI_TASK_PRIO 32
+#endif
+
 #define CLI_CMD_LEN_MAX 256
 
 #define CLI_CMD_MAX_ARG_NUM 30

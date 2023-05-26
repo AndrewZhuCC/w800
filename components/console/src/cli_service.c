@@ -208,7 +208,7 @@ void cli_service_init()
 
 	aos_task_t cli_task;
     int ret = aos_task_new_ext(&cli_task, "uart_task", _cli_task, (void *)&cli_svr, CONFIG_CLI_TASK_STACK_SIZE, CONFIG_CLI_TASK_PRIO);
-    int ret = 0;
+    // int ret = 0;
     if (ret < 0) {
         printf(STR_INIT_ERR);
     } else {
