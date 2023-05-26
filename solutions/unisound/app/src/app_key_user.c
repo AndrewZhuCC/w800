@@ -39,21 +39,23 @@ void change_color(void)
   send_msg_to_queue(&msg);
 }
 
-#define RECEIVE_BUF_LEN 64
+#define RECEIVE_BUF_LEN 16
 
 void send_at_command() {
     char *command = "AT\r\n";
     int ret = user_uart_send(1, command, strlen(command));
-    LOGE(TAG, "ret: %d send: %s", ret, command);
+    LOGI(TAG, "ret: %d send: %s", ret, command);
 
+    LOGI(TAG, "before recv_buf");
     char recv_buf[RECEIVE_BUF_LEN] = {0};
+    LOGI(TAG, "after recv_buf");
     ret = user_uart_recv(1, recv_buf, RECEIVE_BUF_LEN);
     if (ret == -1) {
         LOGE(TAG, "uart recv error");
         return;
     }
 
-    LOGE(TAG, "ret: %d receive: %s", ret, recv_buf);
+    LOGI(TAG, "ret: %d receive: %s", ret, recv_buf);
 }
 
 void button_evt(int event_id, void *priv)
