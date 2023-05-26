@@ -264,6 +264,7 @@ int user_uart_init(pin_name_e user_pin, uint32_t baudrate, int data_bits,
     return -1;
   }
 
+  uart_set_buffer_size(g_uart_handler[port], 1024*2);
   uart_config_t config;
   uart_config_default(&config);
   config.baud_rate = baudrate;
@@ -285,7 +286,7 @@ int user_uart_recv(int port, uint8_t *buf, uint32_t size) {
   if (g_uart_handler[port] == NULL) {
     return -1;
   }
-  return uart_recv(g_uart_handler[port], buf, size, 10000);
+  return uart_recv(g_uart_handler[port], buf, size, 5000);
 }
 
 static void _usr_gpio_pulse_callback(int32_t idx, timer_event_e event)
