@@ -3,7 +3,7 @@
 #include "user_gpio.h"
 
 #define TAG "at_command"
-#define RECEIVE_BUF_LEN 2048
+#define RECEIVE_BUF_LEN 256
 
 void send_at_command(char* command, uint32_t timeout) {
     int ret = user_uart_send(1, command, strlen(command));
