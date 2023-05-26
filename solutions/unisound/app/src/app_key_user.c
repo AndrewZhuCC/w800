@@ -8,6 +8,7 @@
 #include "app_sys.h"
 #include "msg_process_center.h"
 #include "user_gpio.h"
+#include "user_at_command.h"
 
 #define TAG "keyusr"
 
@@ -40,23 +41,6 @@ void change_color(void)
   send_msg_to_queue(&msg);
 }
 
-#define RECEIVE_BUF_LEN 2048
-
-void send_at_command() {
-    char *command = "AT\r\n";
-    int ret = user_uart_send(1, command, strlen(command));
-    LOGI(TAG, "ret: %d send: %s", ret, command);
-
-    char recv_buf[RECEIVE_BUF_LEN] = {0};
-    ret = user_uart_recv(1, recv_buf, RECEIVE_BUF_LEN);
-    if (ret == -1) {
-        LOGE(TAG, "uart recv error");
-        return;
-    }
-
-    LOGI(TAG, "ret: %d receive: %s", ret, recv_buf);
-}
-
 void button_evt(int event_id, void *priv)
 {
     LOGD(TAG, "button(%s)\n", (char *)priv);
@@ -76,7 +60,7 @@ void button_evt(int event_id, void *priv)
 			// LOGE(TAG, "change color");
 			// change_color();
             LOGE(TAG, "send at command");
-            send_at_command();
+            send_at_command("AT\r\n");
 			break;
 		default:
 			break;

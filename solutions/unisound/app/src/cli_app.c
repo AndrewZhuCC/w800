@@ -5,6 +5,7 @@
 #include <driver/uni_efuse.h>
 #include <driver/uni_gpio_afsel.h>
 #include "local_audio.h"
+#include "user_at_command.h"
 
 #define TAG "cliapp"
 
@@ -174,6 +175,9 @@ static void cmd_app_func(char *wbuf, int wbuf_len, int argc, char **argv)
         if (vol <= 127 && vol >= 0) {
             local_audio_vol_set(vol);
         }
+    } else if (strcmp(argv[1], "at") == 0) {
+        printf("cli at %s\n", argv[2]);
+        send_at_command(argv[2]);
 #if 0
     } else if (strcmp(argv[1], "jtag") == 0) {
         uni_swd_config(atoi(argv[2]));
