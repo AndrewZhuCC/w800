@@ -43,10 +43,15 @@ void change_color(void)
 
 void send_at_command() {
     char *command = "AT\r\n";
-    user_uart_send(1, command, strlen(command));
+    int ret = user_uart_send(1, command, strlen(command));
+    LOGE(TAG, "ret: %d send: %s", ret, command);
 
     char recv_buf[RECEIVE_BUF_LEN] = {0};
-    int ret = user_uart_recv(1, recv_buf, RECEIVE_BUF_LEN);
+    ret = user_uart_recv(1, recv_buf, RECEIVE_BUF_LEN);
+    if (ret == -1) {
+        LOGE(TAG, "uart recv error");
+        return;
+    }
 
     LOGE(TAG, "ret: %d receive: %s", ret, recv_buf);
 }
