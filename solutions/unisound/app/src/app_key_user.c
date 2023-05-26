@@ -40,18 +40,14 @@ void change_color(void)
   send_msg_to_queue(&msg);
 }
 
-#define RECEIVE_BUF_LEN 64
+#define RECEIVE_BUF_LEN 2048
 
 void send_at_command() {
     char *command = "AT\r\n";
     int ret = user_uart_send(1, command, strlen(command));
     LOGI(TAG, "ret: %d send: %s", ret, command);
 
-    // aos_event_get(&evt_sample_input, EVT_SAMPLE_READ_AVAILABLE | EVT_SAMPLE_BUF_FULL, AOS_EVENT_OR_CLEAR, &flags, AOS_WAIT_FOREVER);
-
-    LOGI(TAG, "before recv_buf");
     char recv_buf[RECEIVE_BUF_LEN] = {0};
-    LOGI(TAG, "after recv_buf");
     ret = user_uart_recv(1, recv_buf, RECEIVE_BUF_LEN);
     if (ret == -1) {
         LOGE(TAG, "uart recv error");

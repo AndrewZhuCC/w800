@@ -213,7 +213,7 @@ int main() {
   kws_start();
 #endif
   
-  hlk_u2c_app_start();
+  // hlk_u2c_app_start();
   
   init_msg_queue();
   aos_task_new_ext(&task_msg_process, "cmd msg process", msg_process_task, NULL, 2048, AOS_DEFAULT_APP_PRI);
